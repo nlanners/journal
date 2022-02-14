@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Welcome extends StatefulWidget {
-  Welcome({
+  const Welcome({
     Key? key,
     required this.switchToDarkMode,
     required this.darkMode,
@@ -9,7 +9,7 @@ class Welcome extends StatefulWidget {
 
   static const routeName = 'Welcome';
   final void Function() switchToDarkMode;
-  String darkMode;
+  final String darkMode;
 
   @override
   State<Welcome> createState() => _WelcomeState();
@@ -37,7 +37,6 @@ class _WelcomeState extends State<Welcome> {
               onChanged: (bool value) {
                 setState( () {
                   widget.switchToDarkMode();
-                // widget.darkMode = value;
                 });
               },
               
