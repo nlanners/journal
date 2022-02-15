@@ -6,6 +6,7 @@ class JournalEntryDTO {
   late int rating;
   late DateTime dateTime;
 
+  @override
   String toString() =>
     'Title: $title, Body: $body, Rating: $rating, Date: $dateTime';
 }
