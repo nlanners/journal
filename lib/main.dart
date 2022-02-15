@@ -32,6 +32,7 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
 
   static const DARK_MODE_KEY = 'darkMode';
+  
   String get darkMode =>
     widget.prefs.getString(DARK_MODE_KEY) ?? 'false';
 
