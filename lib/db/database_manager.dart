@@ -41,8 +41,8 @@ class DatabaseManager {
     await db.execute(sql);
   }
 
-  void saveJournalEntry({required JournalEntryDTO dto}) async {
-    await db.transaction( (txn) async {
+  void saveJournalEntry({required JournalEntryDTO dto}) {
+    db.transaction( (txn) async {
       await txn.rawInsert(SQL_INSERT,
       [dto.title, dto.body, dto.rating, dto.dateTime.toString()]);
     });
@@ -50,5 +50,10 @@ class DatabaseManager {
 
   Future<List<Map>> journalEntries() {
     return db.rawQuery(SQL_SELECT);
+  }
+
+  Future<bool> journalIsEmpty() async {
+    List<Map> entries = await journalEntries();
+    return entries.isEmpty;
   }
 }

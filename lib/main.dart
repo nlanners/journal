@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'db/database_manager.dart';
+import 'screens/journal.dart';
 import 'screens/new_journal_entry.dart';
 import 'screens/welcome.dart';
 import 'styles.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
 
   static const DARK_MODE_KEY = 'darkMode';
+  DatabaseManager databaseManager = DatabaseManager.getInstance();
   
   String get darkMode =>
     widget.prefs.getString(DARK_MODE_KEY) ?? 'false';
@@ -52,9 +54,11 @@ class MyAppState extends State<MyApp> {
           darkMode: darkMode),
 
         JournalEntryForm.routeName: (context) => const JournalEntryForm(),
-        
+
+        Journal.routeName: (context) => const Journal()
+
       },
-      initialRoute: Welcome.routeName,
+      initialRoute: determineInitialRoute()
     );
   }
 
@@ -65,6 +69,23 @@ class MyAppState extends State<MyApp> {
     }); 
   }
 
+  String determineInitialRoute() {
+    try {
+      databaseManager.journalIsEmpty()
+        .then( (value) {
+          if (value) {
+            return Welcome.routeName;
+          } else {
+            return Journal.routeName;
+          }
+        });
+    } catch (exception) {
+      return Welcome.routeName;
+    }
+    return Welcome.routeName;
+    
+  }
+    
 
 }
 
