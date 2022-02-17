@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Journal extends StatefulWidget {
-  const Journal({ Key? key,
+class DispalyJournal extends StatefulWidget {
+  const DispalyJournal({ Key? key,
     required this.switchToDarkMode,
     required this.darkMode,
     }) : super(key: key);
@@ -11,10 +11,10 @@ class Journal extends StatefulWidget {
   final String darkMode;
 
   @override
-  _JournalState createState() => _JournalState();
+  _DispalyJournalState createState() => _DispalyJournalState();
 }
 
-class _JournalState extends State<Journal> {
+class _DispalyJournalState extends State<DispalyJournal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

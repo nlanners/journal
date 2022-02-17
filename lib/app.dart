@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'db/database_manager.dart';
-import 'screens/journal.dart';
+import 'screens/display_journal.dart';
 import 'screens/new_journal_entry.dart';
 import 'screens/welcome.dart';
 import 'styles.dart';
@@ -42,13 +42,13 @@ class MyAppState extends State<MyApp> {
 
         JournalEntryForm.routeName: (context) => const JournalEntryForm(),
 
-        Journal.routeName: (context) => Journal(
+        DispalyJournal.routeName: (context) => DispalyJournal(
           switchToDarkMode: switchToDarkMode,
           darkMode: darkMode
         )
 
       },
-      initialRoute: widget.databaseExists ? Journal.routeName : Welcome.routeName
+      initialRoute: widget.databaseExists ? DispalyJournal.routeName : Welcome.routeName
     );
   }
 
