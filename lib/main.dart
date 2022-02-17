@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'db/database_manager.dart';
+import 'screens/new_journal_entry.dart';
 import 'screens/welcome.dart';
 import 'styles.dart';
 
@@ -49,6 +50,9 @@ class MyAppState extends State<MyApp> {
         Welcome.routeName: (context) => Welcome(
           switchToDarkMode: switchToDarkMode,
           darkMode: darkMode),
+
+        JournalEntryForm.routeName: (context) => const JournalEntryForm(),
+        
       },
       initialRoute: Welcome.routeName,
     );

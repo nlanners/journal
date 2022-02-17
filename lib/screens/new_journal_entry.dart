@@ -4,6 +4,10 @@ import '../models/journal_entry_dto.dart';
 
 
 class JournalEntryForm extends StatefulWidget {
+  const JournalEntryForm({Key? key}) : super(key: key);
+
+  static const routeName = 'Journal_Form';
+
 
   @override
   State<JournalEntryForm> createState() => _JournalEntryFormState();
@@ -16,20 +20,36 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Form(
-        key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            titleField(context),
-            bodyField(context),
-            ratingField(context, dropdownValue),
-            const SizedBox(height: 10,),
-            saveButton(context)
-          ]
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: Navigator.of(context).pop,
         ),
+      ),
+      body: form(context)
+    );
+  }
+
+  Widget form(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              titleField(context),
+              const SizedBox(height: 10,),
+              bodyField(context),
+              const SizedBox(height: 10,),
+              ratingField(context, dropdownValue),
+              const SizedBox(height: 10,),
+              saveButton(context)
+            ]
+          ),
+        )
       )
     );
   }
@@ -52,7 +72,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
   Widget bodyField(BuildContext context) {
     return TextFormField(
       decoration: const InputDecoration(
-        labelText: 'Title', border: OutlineInputBorder()
+        labelText: 'Body', border: OutlineInputBorder()
       ),
       onSaved: (value) {
         journalEntryFields.body = value.toString();
@@ -65,6 +85,9 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
 
   Widget ratingField(BuildContext context, dropdownValue) {
     return DropdownButtonFormField(
+      decoration: const InputDecoration(
+        labelText: 'Rating', border: OutlineInputBorder()
+      ),
       value: dropdownValue,
       hint: const Text(''),
       items: const [
@@ -93,7 +116,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
           addDateToJournalEntryFields();
           final databaseManager = DatabaseManager.getInstance();
           databaseManager.saveJournalEntry(dto: journalEntryFields);
-          Navigator.of(context).pop();
+          Navigator.pop(context);
         }
       },
       child: const Text('Save Entry'),
@@ -103,5 +126,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
   void addDateToJournalEntryFields() {
     journalEntryFields.dateTime = DateTime.now();
   }
+
+
 
 }

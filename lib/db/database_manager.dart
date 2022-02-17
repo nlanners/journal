@@ -1,14 +1,15 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import '../models/journal_entry_dto.dart';
 
-const SCHEMA_PATH = 'assets/schema_1.sql.txt';
+const SCHEMA_PATH = 'assets/schema_1.txt';
 
 class DatabaseManager {
 
   static const String DATABASE_FILENAME = 'journal.sqlite3.db';
   static const String SQL_INSERT = 'INSERT INTO journal_entries(title, body, rating, date) VALUES(?, ?, ?, ?);';
   static const String SQL_SELECT = 'SELECT * FROM journal_entries;';
+  
 
   static late DatabaseManager _instance;
 
@@ -22,8 +23,7 @@ class DatabaseManager {
   }
 
   static Future<String> createSchema(path) async {
-    String schema = await rootBundle.loadString(path);
-    return schema;
+    return await rootBundle.loadString(path);
   }
 
   static Future initialize() async {
@@ -31,7 +31,7 @@ class DatabaseManager {
       DATABASE_FILENAME,
       version: 1,
       onCreate: (Database db, int version) async {
-        createTables(db,  await createSchema(SCHEMA_PATH));
+        createTables(db, await createSchema(SCHEMA_PATH));
         }
       );
       _instance = DatabaseManager._(database: db);
