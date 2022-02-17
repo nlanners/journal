@@ -37,31 +37,31 @@ class _WelcomeState extends State<Welcome> {
   }
 
   Widget settingsDrawer() {
-    return Drawer(
-      child: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          const ListTile(
-            title: Text('Settings'),
-          ),
-          const Divider(),
-          SwitchListTile(
-            title: const Text('Dark Mode'),
-            value: widget.darkMode == 'true' ? true : false,
-            onChanged: (bool value) {
-              setState( () {
-                widget.switchToDarkMode();
-              });
-            },
-          ),
-          const Divider(),
-          ElevatedButton(
-            child: const Text('Save Settings'),
-            onPressed: () => Navigator.pop(context),
-          )
-        ],
-      )
-    );
-  }
+  return Drawer(
+    child: ListView(
+      padding: const EdgeInsets.all(20),
+      children: [
+        const ListTile(
+          title: Text('Settings'),
+        ),
+        const Divider(),
+        SwitchListTile(
+          title: const Text('Dark Mode'),
+          value: widget.darkMode == 'true' ? true : false,
+          onChanged: (bool value) {
+            setState( () {
+              widget.switchToDarkMode();
+            });
+          },
+        ),
+        const Divider(),
+        ElevatedButton(
+          child: const Text('Save Settings'),
+          onPressed: () => Navigator.pop(context),
+        )
+      ],
+    )
+  );
+}
 
 }
