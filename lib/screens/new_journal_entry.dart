@@ -116,6 +116,9 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
           addDateToJournalEntryFields();
           final databaseManager = DatabaseManager.getInstance();
           databaseManager.saveJournalEntry(dto: journalEntryFields);
+
+          debugPrint(journalEntryFields.toString());
+          
           Navigator.pop(context);
         }
       },

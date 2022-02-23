@@ -1,10 +1,10 @@
 
 class JournalEntryDTO {
 
-  late String title;
-  late String body;
-  late int rating;
-  late DateTime dateTime;
+  String? title;
+  String? body;
+  int? rating;
+  DateTime? dateTime;
 
   @override
   String toString() =>

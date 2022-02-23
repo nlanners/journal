@@ -14,11 +14,12 @@ void main() async {
   ]);
 
   await DatabaseManager.initialize();
-  bool databaseExists = await DatabaseManager.getInstance().journalIsEmpty();
+  DatabaseManager db = DatabaseManager.getInstance();
+  bool databaseIsEmpty = await db.journalIsEmpty();
 
   runApp(MyApp(
     prefs: await SharedPreferences.getInstance(),
-    databaseExists: databaseExists));
+    databaseExists: !databaseIsEmpty));
 }
 
 

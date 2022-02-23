@@ -46,7 +46,6 @@ class MyAppState extends State<MyApp> {
           switchToDarkMode: switchToDarkMode,
           darkMode: darkMode
         )
-
       },
       initialRoute: widget.databaseExists ? DispalyJournal.routeName : Welcome.routeName
     );
