@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'db/database_manager.dart';
 import 'screens/display_journal.dart';
-import 'screens/new_journal_entry.dart';
+import 'screens/new_journal_entry_form.dart';
 import 'screens/welcome.dart';
 import 'styles.dart';
 
@@ -42,13 +42,21 @@ class MyAppState extends State<MyApp> {
 
         JournalEntryForm.routeName: (context) => const JournalEntryForm(),
 
-        DispalyJournal.routeName: (context) => DispalyJournal(
+        DisplayJournal.routeName: (context) => DisplayJournal(
           switchToDarkMode: switchToDarkMode,
           darkMode: darkMode
         )
       },
-      initialRoute: widget.databaseExists ? DispalyJournal.routeName : Welcome.routeName
+      initialRoute: pickInitialRoute(widget.databaseExists)
     );
+  }
+
+  String pickInitialRoute (bool dbE) {
+    if (dbE) {
+      return DisplayJournal.routeName;
+    } else {
+      return Welcome.routeName;
+    }
   }
 
   void switchToDarkMode() {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:journal/screens/new_journal_entry.dart';
+import 'package:journal/screens/new_journal_entry_form.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({
@@ -22,12 +22,11 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(Welcome.routeName)
-        )
+        title: const Text(Welcome.routeName),
+        centerTitle: true,
       ),
       endDrawer: settingsDrawer(),
-      body: const Center(child: Text('WELCOME!!!')),
+      body: const Center(child: Icon(Icons.menu_book, size: 100.0)),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, JournalEntryForm.routeName);

@@ -16,6 +16,7 @@ dependencies:
   shared_preferences: ^2.0.13
   path_provider: ^2.0.9
   sqflite: ^2.0.2
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +32,17 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto-BoldItalic.ttf
+          style: italic
+          weight: 700
+        - asset: assets/fonts/Roboto-Italic.ttf
+          style: italic 
   # fonts:
   #   - family: Schyler
   #     fonts:

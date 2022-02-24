@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../db/database_manager.dart';
 import '../models/journal_entry_dto.dart';
+import '../screens/display_journal.dart';
 
 
 class JournalEntryForm extends StatefulWidget {
@@ -26,6 +28,8 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: Navigator.of(context).pop,
         ),
+        title: const Text('New Journal Entry'),
+        centerTitle: true,
       ),
       body: form(context)
     );
@@ -119,7 +123,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
 
           debugPrint(journalEntryFields.toString());
           
-          Navigator.pop(context);
+          Navigator.popAndPushNamed(context, DisplayJournal.routeName);
         }
       },
       child: const Text('Save Entry'),
@@ -127,9 +131,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
   }
 
   void addDateToJournalEntryFields() {
-    journalEntryFields.dateTime = DateTime.now();
+    journalEntryFields.dateTime = DateFormat('EEEE, MMMM d, y').format(DateTime.now()).toString();
   }
-
-
 
 }

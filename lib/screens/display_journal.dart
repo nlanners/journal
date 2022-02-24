@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import '../styles.dart';
 import '../db/database_manager.dart';
 import '../models/journal_entry.dart';
+import '../screens/new_journal_entry_form.dart';
 
-class DispalyJournal extends StatefulWidget {
-  DispalyJournal({ Key? key,
+class DisplayJournal extends StatefulWidget {
+  DisplayJournal({ Key? key,
     required this.switchToDarkMode,
     required this.darkMode,
     }) : super(key: key);
@@ -15,19 +17,28 @@ class DispalyJournal extends StatefulWidget {
   
 
   @override
-  _DispalyJournalState createState() => _DispalyJournalState();
+  _DisplayJournalState createState() => _DisplayJournalState();
 }
 
-class _DispalyJournalState extends State<DispalyJournal> {
+class _DisplayJournalState extends State<DisplayJournal> {
+
+  ListView? entryTiles;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Journal'),
+        title: Text(DisplayJournal.routeName),
+        centerTitle: true,
       ),
       endDrawer: settingsDrawer(),
-      body: entriesList(),
-    );
+      body: journalBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, JournalEntryForm.routeName);
+        },
+        child: const Icon(Icons.add)),
+      );
   }
 
   Widget settingsDrawer() {
@@ -58,14 +69,26 @@ class _DispalyJournalState extends State<DispalyJournal> {
     );
   }
 
-  Widget entriesList() {
-    return ListView(
-      padding: const EdgeInsets.all(10),
-      children: entriesListTiles(entryMap(widget.db.journalEntries()))
-    );
+  Widget? journalBody() {
+    if (entryTiles == null) {
+       entriesList();
+      return const CircularProgressIndicator();
+    } else {
+      return entryTiles;
+    }
   }
 
-  List<JournalEntry> entryMap(data) {
+  void entriesList() async {
+    var entries = await widget.db.journalEntries();
+    setState( () {
+      entryTiles = ListView(
+        padding: const EdgeInsets.all(10),
+        children: entriesListTiles(journalEntryList(entries))
+      );
+    }); 
+  }
+
+  List<JournalEntry> journalEntryList(data) {
     List<JournalEntry> entries = List.filled(
       data.length, JournalEntry.nullEntry()
     );
@@ -75,16 +98,16 @@ class _DispalyJournalState extends State<DispalyJournal> {
         title: entry['title'],
         body: entry['body'],
         rating: entry['rating'],
-        dateTime: entry['dateTime']
+        dateTime: entry['date']
       );
 
-      entries[entry['id']] = je;
+      entries[entry['id'] - 1] = je;
     });
 
     return entries;
   }
 
-  List<ListTile> entriesListTiles(List<JournalEntry> entries) {
+  List<ListTile> entriesListTiles(entries) {
     List<ListTile> listTiles = [];
 
     for( var entry in entries) {
@@ -115,13 +138,31 @@ class JournalBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(entry.entryDateTime)
+        title: Text(entry.entryDateTime),
+        centerTitle: true,
       ),
       body: Column(
         children: [
-          Text(entry.entryTitle),
-          Text(entry.entryBody),
-          Text('Rating: ' + entry.entryRating.toString())
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(entry.entryTitle, style: Styles.titleText),
+            ),
+          ),
+          Align(alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+              child: Text('Rating: ' + entry.entryRating.toString(), style: Styles.subtitleText),
+            )
+          ),
+          Align(alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(entry.entryBody, style: Styles.normalText),
+            )
+          ),
+          
         ],
       )
     );
