@@ -50,7 +50,11 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
               const SizedBox(height: 10,),
               ratingField(context, dropdownValue),
               const SizedBox(height: 10,),
-              saveButton(context)
+              Row(children: [
+                cancelButton(context),
+                saveButton(context)],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              )
             ]
           ),
         )
@@ -127,6 +131,15 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
         }
       },
       child: const Text('Save Entry'),
+    );
+  }
+
+  Widget cancelButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: const Text('Cancel')
     );
   }
 
