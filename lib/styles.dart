@@ -22,13 +22,6 @@ class Styles {
     fontWeight: FontWeight.w700,
     fontSize: _textSizeLarge,
     color: _textColorFaint,
-    shadows:[
-      Shadow(
-        color: Colors.black,
-        blurRadius: 2,
-        offset: Offset(2.5, 2)
-      )
-    ]
   );
 
   static const normalText = TextStyle(
